@@ -4,24 +4,3 @@ name: diabetes-dev-folder
 path: ../experimentation/data
 description: Asset for diabetes datasets.
 
-(venv) D:\projects\mslearn-mlops> az ml data create --file .\src\dataset.yml --workspace-name MLOpsWorkspace --resource-group MLOps
-Uploading data (0.26 MBs): 100%|######################################################################################################################################| 258786/258786 [00:00<00:00, 1458241.07it/s]
-
-
-{
-  "creation_context": {
-    "created_at": "2024-01-16T12:10:45.346877+00:00",
-    "created_by": "Sęk Marcin",
-    "created_by_type": "User",
-    "last_modified_at": "2024-01-16T12:10:45.356366+00:00"
-  },
-  "description": "Asset for diabetes datasets.",
-  "id": "/subscriptions/e135136f-2fb1-450a-add0-eb6036d62849/resourceGroups/MLOps/providers/Microsoft.MachineLearningServices/workspaces/MLOpsWorkspace/data/diabetes-dev-folder/versions/1",
-  "name": "diabetes-dev-folder",
-  "path": "azureml://subscriptions/e135136f-2fb1-450a-add0-eb6036d62849/resourcegroups/MLOps/workspaces/MLOpsWorkspace/datastores/workspaceblobstore/paths/LocalUpload/534e63694838be564a42c83cb065f8fd/data/",
-  "properties": {},
-  "resourceGroup": "MLOps",
-  "tags": {},
-  "type": "uri_folder",
-  "version": "1"
-}
