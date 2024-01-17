@@ -1,0 +1,60 @@
+name: Deploy Model
+
+on:
+  push:
+    branches:
+      - model
+
+env:
+  job-name: modest_lunch_fv98b5d42v
+
+jobs:
+  register-model:
+    name: Register Diabetes Model
+    runs-on: ubuntu-latest
+    environment:
+      name: prod
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@main
+      - name: Install az ml extension
+        run: az extension add -n ml -y
+      - name: "Az CLI login"
+        uses: azure/login@v1
+        with:
+          creds: ${{secrets.AZURE_CREDENTIALS}}
+      - name: Trigger Azure ML job
+        run: az ml model create --name diabetes-model --path azureml://jobs/${{ env.job-name }}/outputs/artifacts/paths/model/ --type mlflow_model --workspace-name MLOpsWorkspace --resource-group MLOps
+  create-endpoint:
+    name: Create Endpoint
+    if: github.event.label.name == 'create-endpoint'
+    runs-on: ubuntu-latest
+    environment:
+      name: prod
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@main
+      - name: Install az ml extension
+        run: az extension add -n ml -y
+      - name: "Az CLI login"
+        uses: azure/login@v1
+        with:
+          creds: ${{secrets.AZURE_CREDENTIALS}}
+      - name: Trigger Azure ML job
+        run: az ml online-endpoint create -f src/create-endpoint.yml --workspace-name MLOpsWorkspace --resource-group MLOps
+  deploy-model:
+    name: Deploy Model
+    runs-on: ubuntu-latest
+    environment:
+      name: prod
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@main
+      - name: Install az ml extension
+        run: az extension add -n ml -y
+      - name: "Az CLI login"
+        uses: azure/login@v1
+        with:
+          creds: ${{secrets.AZURE_CREDENTIALS}}
+      - name: Trigger Azure ML job
+        run:  az ml online-deployment create -f src/deploy-endpoint.yml --all-traffic --workspace-name MLOpsWorkspace --resource-group MLOps
