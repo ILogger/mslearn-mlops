@@ -27,7 +27,6 @@ jobs:
         run: az ml model create --name diabetes-model --path azureml://jobs/${{ env.job-name }}/outputs/artifacts/paths/model/ --type mlflow_model --workspace-name MLOpsWorkspace --resource-group MLOps
   create-endpoint:
     name: Create Endpoint
-    if: github.event.label.name == 'create-endpoint'
     runs-on: ubuntu-latest
     environment:
       name: prod
