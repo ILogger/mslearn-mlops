@@ -2,5 +2,5 @@ $schema: https://azuremlschemas.azureedge.net/latest/managedOnlineDeployment.sch
 name: mlflow-endpoint
 endpoint_name: mlflow-endpoint-msek-wwsi
 model: azureml:diabetes-model:1
-instance_type: Standard_F4s_v2
+instance_type: Standard_D2as_v4
 instance_count: 1
